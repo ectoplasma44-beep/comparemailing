@@ -395,13 +395,13 @@ export const TOOLS: Record<string, Tool> = {
     descriptionLongue:
       "Systeme.io est une plateforme tout-en-un créée en 2018 par l'entrepreneur français Aurélien Amacker. Elle combine l'emailing, les tunnels de vente, la création de cours en ligne, les programmes d'affiliation, les webinaires et les blogs dans une seule interface. Sa promesse : remplacer ClickFunnels + Mailchimp + Teachable + ThriveCart pour moins de 100 $/mois. Le plan gratuit est le plus généreux du marché avec 2 000 contacts et des tunnels illimités.",
     siteUrl: "https://systeme.io/fr",
-    affiliateUrl: "https://systeme.io/fr/affiliate",
+    affiliateUrl: "https://systeme.io/fr?sa=sa00528582246f7b1fdec8926b990261b281da9921",
     affiliateProgram: {
       commission: "60 % récurrent à vie",
       type: "récurrent",
       dureeRecurrence: "à vie",
       cookieDays: 365,
-      lien: "https://systeme.io/fr/affiliate",
+      lien: "https://systeme.io/fr?sa=sa00528582246f7b1fdec8926b990261b281da9921",
     },
     noteGlobale: 4.4,
     prixDepart: 27,
