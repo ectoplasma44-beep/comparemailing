@@ -29,8 +29,8 @@ export default function MentionsLegalesPage() {
             <h2 className="mb-3 text-base font-semibold text-gray-900">Éditeur du site</h2>
             <p>
               Ce site est édité par un micro-entrepreneur :<br />
-              <strong className="text-gray-800">[NOM PRÉNOM]</strong><br />
-              [ADRESSE]<br />
+              <strong className="text-gray-800">LUBINO Abimael</strong><br />
+              4 rue Jacques Duclos, 44570 Trignac<br />
               E-mail : <a href="mailto:ectoplasma44@gmail.com" className="text-gray-800 underline underline-offset-2 hover:text-gray-600">ectoplasma44@gmail.com</a>
             </p>
             <p className="mt-3">
