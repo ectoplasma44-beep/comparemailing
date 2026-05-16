@@ -2,11 +2,6 @@
 
 import type { Tool } from "@/data/tools";
 
-declare global {
-  interface Window {
-    gtag?: (event: string, action: string, params: Record<string, string>) => void;
-  }
-}
 
 type Props = {
   tool: Tool;
