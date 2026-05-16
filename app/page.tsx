@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { getVsPageSlug } from "@/data/tools";
+import { getVsPageSlug, VS_COMBINATIONS, getAllTools } from "@/data/tools";
 import { getAllProfiles } from "@/data/profiles";
 
 export const metadata: Metadata = {
@@ -46,6 +46,30 @@ const PROFILE_EMOJIS: Record<string, string> = {
   restauration: "🍽️",
 };
 
+const FREE_TOOLS = [
+  {
+    icon: "🎯",
+    titre: "Quel outil emailing pour moi ?",
+    description: "5 questions pour trouver l'outil adapté à votre profil et budget.",
+    href: "/quiz",
+    label: "Faire le quiz",
+  },
+  {
+    icon: "🧮",
+    titre: "Simulateur de coût",
+    description: "Comparez les prix en temps réel selon votre volume d'envoi.",
+    href: "/simulateur-cout",
+    label: "Simuler mon coût",
+  },
+  {
+    icon: "⚖️",
+    titre: "Comparateur d'outils",
+    description: "Comparez deux outils côte à côte en détail.",
+    href: "/brevo-vs-mailchimp",
+    label: "Comparer maintenant",
+  },
+] as const;
+
 const TRUST_BLOCKS = [
   {
     icon: "✅",
@@ -71,6 +95,7 @@ const TRUST_BLOCKS = [
 
 export default function HomePage() {
   const profiles = getAllProfiles();
+  const toolNameMap = Object.fromEntries(getAllTools().map((t) => [t.slug, t.nom]));
 
   return (
     <div className="min-h-screen bg-white">
@@ -102,6 +127,41 @@ export default function HomePage() {
             >
               Quel outil pour moi ? →
             </a>
+          </div>
+        </div>
+      </section>
+
+      {/* ── OUTILS GRATUITS ─────────────────────────────────────────────── */}
+      <section className="border-b border-gray-100 bg-gray-50 px-4 py-16">
+        <div className="mx-auto max-w-5xl">
+          <div className="mb-8 text-center">
+            <h2 className="mb-2 text-2xl font-bold text-gray-900">
+              Nos outils gratuits
+            </h2>
+            <p className="text-sm text-gray-500">
+              Des outils interactifs pour choisir sans effort.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+            {FREE_TOOLS.map((tool) => (
+              <a
+                key={tool.href}
+                href={tool.href}
+                className="group flex flex-col rounded-xl border border-gray-200 bg-white p-6 transition-all hover:border-gray-300 hover:shadow-sm"
+              >
+                <span className="mb-3 text-3xl" aria-hidden="true">{tool.icon}</span>
+                <p className="mb-1 font-semibold text-gray-900">{tool.titre}</p>
+                <p className="mb-4 flex-1 text-sm leading-relaxed text-gray-500">
+                  {tool.description}
+                </p>
+                <span className="inline-flex items-center gap-1 text-sm font-medium text-gray-700 group-hover:text-gray-900">
+                  {tool.label}
+                  <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                  </svg>
+                </span>
+              </a>
+            ))}
           </div>
         </div>
       </section>
@@ -154,6 +214,14 @@ export default function HomePage() {
                 </a>
               );
             })}
+          </div>
+          <div className="mt-6 text-center">
+            <a
+              href="#tous-les-comparatifs"
+              className="text-sm text-gray-400 underline underline-offset-2 hover:text-gray-700"
+            >
+              Voir tous les comparatifs →
+            </a>
           </div>
         </div>
       </section>
@@ -251,6 +319,45 @@ export default function HomePage() {
                 <p className="text-sm leading-relaxed text-gray-500">{b.texte}</p>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── TOUS LES COMPARATIFS ────────────────────────────────────────── */}
+      <section id="tous-les-comparatifs" className="border-b border-gray-100 px-4 py-16">
+        <div className="mx-auto max-w-5xl">
+          <div className="mb-8 text-center">
+            <h2 className="mb-2 text-2xl font-bold text-gray-900">
+              Tous les comparatifs
+            </h2>
+            <p className="text-sm text-gray-500">
+              18 face-à-face détaillés entre les principaux outils emailing.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 gap-x-6 gap-y-2 sm:grid-cols-2 lg:grid-cols-3">
+            {VS_COMBINATIONS.map(([slugA, slugB]) => {
+              const href = `/${getVsPageSlug(slugA, slugB)}`;
+              const nomA = toolNameMap[slugA] ?? slugA;
+              const nomB = toolNameMap[slugB] ?? slugB;
+              return (
+                <a
+                  key={href}
+                  href={href}
+                  className="group flex items-center gap-1.5 py-1.5 text-sm text-gray-600 hover:text-gray-900"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="shrink-0 text-gray-300 group-hover:text-gray-500" aria-hidden="true">
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                  </svg>
+                  <span>
+                    <span className="font-medium">{nomA}</span>
+                    {" "}
+                    <span className="text-gray-400">vs</span>
+                    {" "}
+                    <span className="font-medium">{nomB}</span>
+                  </span>
+                </a>
+              );
+            })}
           </div>
         </div>
       </section>
