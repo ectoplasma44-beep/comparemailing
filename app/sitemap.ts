@@ -44,6 +44,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 0.9,
     },
+    {
+      url: `${BASE}/quiz`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.9,
+    },
   ];
 
   return [...homepage, ...staticPages, ...vsPages, ...alternativePages, ...profilPages];
