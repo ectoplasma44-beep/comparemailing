@@ -262,7 +262,7 @@ export default function HomePage() {
             <a href="/mentions-legales" className="hover:text-gray-700 hover:underline">
               Mentions légales
             </a>
-            <a href="/confidentialite" className="hover:text-gray-700 hover:underline">
+            <a href="/politique-confidentialite" className="hover:text-gray-700 hover:underline">
               Politique de confidentialité
             </a>
             <a href="/disclosure" className="hover:text-gray-700 hover:underline">
