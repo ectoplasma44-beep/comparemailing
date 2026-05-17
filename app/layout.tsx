@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import { GA_ID } from "@/lib/gtag";
+import Header from "@/components/Header";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -42,7 +43,10 @@ export default function RootLayout({
             gtag('config', '${GA_ID}');
           `}
         </Script>
-        {children}
+        <Header />
+        <main className="pt-16">
+          {children}
+        </main>
       </body>
     </html>
   );
