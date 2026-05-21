@@ -898,13 +898,15 @@ export function getVsPageSlug(slugA: string, slugB: string): string {
   return [slugA, slugB].sort().join("-vs-");
 }
 
-// 18 paires les plus pertinentes SEO entre les 10 outils
+// 22 paires les plus pertinentes SEO entre les 10 outils
 export const VS_COMBINATIONS: [string, string][] = [
   ["brevo", "mailchimp"],
   ["brevo", "mailerlite"],
   ["brevo", "sarbacane"],
   ["brevo", "mailjet"],
   ["brevo", "getresponse"],
+  ["brevo", "activecampaign"],
+  ["brevo", "convertkit"],
   ["mailchimp", "mailerlite"],
   ["mailchimp", "getresponse"],
   ["mailchimp", "activecampaign"],
@@ -912,6 +914,8 @@ export const VS_COMBINATIONS: [string, string][] = [
   ["mailerlite", "getresponse"],
   ["mailerlite", "convertkit"],
   ["mailerlite", "moosend"],
+  ["mailerlite", "activecampaign"],
+  ["mailerlite", "systemeio"],
   ["getresponse", "activecampaign"],
   ["getresponse", "systemeio"],
   ["convertkit", "activecampaign"],
