@@ -91,13 +91,66 @@ const TRUST_BLOCKS = [
   },
 ];
 
+const BASE_URL = "https://toolpick.fr";
+
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
 export default function HomePage() {
   const profiles = getAllProfiles();
   const toolNameMap = Object.fromEntries(getAllTools().map((t) => [t.slug, t.nom]));
 
+  const websiteJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "ToolPick",
+    url: BASE_URL,
+    description: "Comparateur d'outils emailing pour le marché francophone",
+    potentialAction: {
+      "@type": "SearchAction",
+      target: `${BASE_URL}/brevo-vs-{search_term_string}`,
+      "query-input": "required name=search_term_string",
+    },
+  };
+
+  const organizationJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "ToolPick",
+    url: BASE_URL,
+    logo: `${BASE_URL}/logo.png`,
+    contactPoint: {
+      "@type": "ContactPoint",
+      email: "contact@toolpick.fr",
+      contactType: "customer service",
+    },
+  };
+
+  const itemListJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "Comparatifs outils emailing populaires",
+    itemListElement: POPULAR_VS.map(({ slugA, slugB, labelA, labelB }, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: `${labelA} vs ${labelB}`,
+      url: `${BASE_URL}/${getVsPageSlug(slugA, slugB)}`,
+    })),
+  };
+
   return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListJsonLd) }}
+      />
     <div className="min-h-screen bg-white">
 
       {/* ── HERO ─────────────────────────────────────────────────────────── */}
@@ -388,5 +441,6 @@ export default function HomePage() {
       </footer>
 
     </div>
+    </>
   );
 }
