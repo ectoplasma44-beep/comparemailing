@@ -4,6 +4,7 @@ import type { Tool } from "@/data/tools";
 import { getVsPageSlug } from "@/data/tools";
 import type { Profile } from "@/data/profiles";
 import AffiliateButton from "@/components/AffiliateButton";
+import { generateProfilFaqItems } from "@/lib/profil-faq";
 
 type Props = {
   profil: Profile;
@@ -465,6 +466,30 @@ export default function ProfilPageClient({ profil, tools, allTools, year }: Prop
           </div>
         </section>
       )}
+
+      {/* ── SEO CONTENT ──────────────────────────────────────────────────── */}
+      <div className="border-t border-gray-100 px-4 py-14">
+        <div className="mx-auto max-w-4xl">
+          <h2 className="mb-8 text-2xl font-bold text-gray-900">
+            Questions fréquentes sur l&apos;emailing pour {profil.nomPluriel}
+          </h2>
+          <dl className="space-y-6">
+            {generateProfilFaqItems(profil, allTools).map((item) => (
+              <div
+                key={item.question}
+                className="rounded-xl border border-gray-200 p-6"
+              >
+                <dt className="mb-2 font-semibold text-gray-900">
+                  {item.question}
+                </dt>
+                <dd className="text-sm leading-relaxed text-gray-700">
+                  {item.answer}
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      </div>
 
       {/* ── LEGAL DISCLOSURE ─────────────────────────────────────────────── */}
       <footer className="border-t border-gray-100 bg-gray-50 px-4 py-6">

@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { getAllProfiles, getProfileBySlug } from "@/data/profiles";
 import { getAllTools, getToolsForProfile } from "@/data/tools";
 import ProfilPageClient from "@/components/profil/ProfilPageClient";
+import { generateProfilFaqItems } from "@/lib/profil-faq";
 
 type Props = {
   params: Promise<{ profil: string }>;
@@ -46,7 +47,7 @@ export default async function ProfilPage({ params }: Props) {
   const allTools = getAllTools();
   const year = new Date().getFullYear();
 
-  const jsonLd = {
+  const articleJsonLd = {
     "@context": "https://schema.org",
     "@type": "Article",
     headline: `Meilleur outil emailing pour ${profile.nomPluriel} en ${year}`,
@@ -63,11 +64,28 @@ export default async function ProfilPage({ params }: Props) {
     },
   };
 
+  const faqJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: generateProfilFaqItems(profile, allTools).map((item) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.answer,
+      },
+    })),
+  };
+
   return (
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
       <ProfilPageClient
         profil={profile}
