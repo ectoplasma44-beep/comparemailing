@@ -229,13 +229,13 @@ export const TOOLS: Record<string, Tool> = {
     descriptionLongue:
       "MailerLite est une plateforme d'email marketing fondée en 2010 à Vilnius (Lituanie). Elle se distingue par un plan gratuit très généreux (jusqu'à 1 000 abonnés, 12 000 emails/mois), un éditeur de newsletters et de sites web d'une grande simplicité, et des prix parmi les plus bas du marché. Idéale pour les créateurs de contenu, les solopreneurs et les petites structures qui veulent démarrer sans complexité et sans budget.",
     siteUrl: "https://www.mailerlite.com/",
-    affiliateUrl: "https://www.mailerlite.com/affiliate-program",
+    affiliateUrl: "https://www.mailerlite.com/?linkId=lp_170762&sourceId=toolpick&tenantId=mailerlite",
     affiliateProgram: {
       commission: "30 % récurrent à vie",
       type: "récurrent",
       dureeRecurrence: "à vie",
       cookieDays: 90,
-      lien: "https://www.mailerlite.com/affiliate-program",
+      lien: "https://www.mailerlite.com/?linkId=lp_170762&sourceId=toolpick&tenantId=mailerlite",
     },
     noteGlobale: 4.5,
     prixDepart: 9,
