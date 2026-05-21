@@ -3,6 +3,7 @@
 import { useState } from "react";
 import type { Tool, Feature } from "@/data/tools";
 import AffiliateButton from "@/components/AffiliateButton";
+import { generateFaqItems } from "@/lib/vs-faq";
 
 type Props = {
   toolA: Tool;
@@ -569,6 +570,83 @@ export default function VsPageClient({ toolA, toolB, year }: Props) {
           {activeTab === "verdict" && (
             <VerdictTab toolA={toolA} toolB={toolB} />
           )}
+        </div>
+      </div>
+
+      {/* ── SEO CONTENT ──────────────────────────────────────────────────── */}
+      <div className="border-t border-gray-100 px-4 py-14">
+        <div className="mx-auto max-w-4xl space-y-16">
+
+          {/* Section 1 : présentation toolA */}
+          <section>
+            <h2 className="mb-4 text-2xl font-bold text-gray-900">
+              Qu&apos;est-ce que {toolA.nom}&nbsp;?
+            </h2>
+            <p className="mb-6 leading-relaxed text-gray-700">
+              {toolA.descriptionLongue}
+            </p>
+            <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-gray-500">
+              Points forts
+            </p>
+            <ul className="mb-6 space-y-2">
+              {toolA.avantages.map((a) => (
+                <li key={a} className="flex gap-2 text-sm text-gray-700">
+                  <span className="mt-0.5 shrink-0 text-green-600">✓</span>
+                  {a}
+                </li>
+              ))}
+            </ul>
+            <p className="text-sm text-gray-500">
+              Origine&nbsp;: {toolA.pays} &middot; Fondé en {toolA.fondation}
+            </p>
+          </section>
+
+          {/* Section 2 : présentation toolB */}
+          <section>
+            <h2 className="mb-4 text-2xl font-bold text-gray-900">
+              Qu&apos;est-ce que {toolB.nom}&nbsp;?
+            </h2>
+            <p className="mb-6 leading-relaxed text-gray-700">
+              {toolB.descriptionLongue}
+            </p>
+            <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-gray-500">
+              Points forts
+            </p>
+            <ul className="mb-6 space-y-2">
+              {toolB.avantages.map((a) => (
+                <li key={a} className="flex gap-2 text-sm text-gray-700">
+                  <span className="mt-0.5 shrink-0 text-green-600">✓</span>
+                  {a}
+                </li>
+              ))}
+            </ul>
+            <p className="text-sm text-gray-500">
+              Origine&nbsp;: {toolB.pays} &middot; Fondé en {toolB.fondation}
+            </p>
+          </section>
+
+          {/* Section 3 : FAQ */}
+          <section>
+            <h2 className="mb-8 text-2xl font-bold text-gray-900">
+              Questions fréquentes sur {toolA.nom} vs {toolB.nom}
+            </h2>
+            <dl className="space-y-6">
+              {generateFaqItems(toolA, toolB).map((item) => (
+                <div
+                  key={item.question}
+                  className="rounded-xl border border-gray-200 p-6"
+                >
+                  <dt className="mb-2 font-semibold text-gray-900">
+                    {item.question}
+                  </dt>
+                  <dd className="text-sm leading-relaxed text-gray-700">
+                    {item.answer}
+                  </dd>
+                </div>
+              ))}
+            </dl>
+          </section>
+
         </div>
       </div>
 

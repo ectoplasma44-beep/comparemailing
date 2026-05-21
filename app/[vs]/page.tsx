@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { TOOLS, VS_COMBINATIONS, getToolBySlug, getVsPageSlug } from "@/data/tools";
 import VsPageClient from "@/components/vs/VsPageClient";
+import { generateFaqItems } from "@/lib/vs-faq";
 
 type Props = {
   params: Promise<{ vs: string }>;
@@ -63,7 +64,7 @@ export default async function VsPage({ params }: Props) {
 
   const year = new Date().getFullYear();
 
-  const jsonLd = {
+  const articleJsonLd = {
     "@context": "https://schema.org",
     "@type": "Article",
     headline: `${toolA.nom} vs ${toolB.nom} : comparatif complet ${year}`,
@@ -80,11 +81,28 @@ export default async function VsPage({ params }: Props) {
     },
   };
 
+  const faqJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: generateFaqItems(toolA, toolB).map((item) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.answer,
+      },
+    })),
+  };
+
   return (
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
       <VsPageClient toolA={toolA} toolB={toolB} year={year} />
     </>
