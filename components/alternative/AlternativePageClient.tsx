@@ -3,6 +3,7 @@
 import type { Tool, Feature } from "@/data/tools";
 import { getVsPageSlug } from "@/data/tools";
 import AffiliateButton from "@/components/AffiliateButton";
+import { generateAlternativeFaqItems } from "@/lib/alternative-faq";
 
 type Props = {
   tool: Tool;
@@ -466,6 +467,48 @@ export default function AlternativePageClient({ tool, allTools, year }: Props) {
           </div>
         </div>
       </section>
+
+      {/* ── SEO CONTENT ──────────────────────────────────────────────────── */}
+      <div className="border-t border-gray-100 px-4 py-14">
+        <div className="mx-auto max-w-4xl space-y-16">
+
+          {/* Section 1 : pourquoi [tool.nom] est populaire */}
+          <section>
+            <h2 className="mb-4 text-2xl font-bold text-gray-900">
+              Pourquoi {tool.nom} est-il si populaire&nbsp;?
+            </h2>
+            <p className="mb-6 leading-relaxed text-gray-700">
+              {tool.descriptionLongue}
+            </p>
+            <p className="text-sm text-gray-500">
+              Origine&nbsp;: {tool.pays} &middot; Fondé en {tool.fondation}
+            </p>
+          </section>
+
+          {/* Section 2 : FAQ */}
+          <section>
+            <h2 className="mb-8 text-2xl font-bold text-gray-900">
+              Questions fréquentes sur les alternatives à {tool.nom}
+            </h2>
+            <dl className="space-y-6">
+              {generateAlternativeFaqItems(tool, alternatives).map((item) => (
+                <div
+                  key={item.question}
+                  className="rounded-xl border border-gray-200 p-6"
+                >
+                  <dt className="mb-2 font-semibold text-gray-900">
+                    {item.question}
+                  </dt>
+                  <dd className="text-sm leading-relaxed text-gray-700">
+                    {item.answer}
+                  </dd>
+                </div>
+              ))}
+            </dl>
+          </section>
+
+        </div>
+      </div>
 
       {/* ── LEGAL DISCLOSURE ─────────────────────────────────────────────── */}
       <footer className="border-t border-gray-100 bg-gray-50 px-4 py-6">

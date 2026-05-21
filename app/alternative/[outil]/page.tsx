@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getAllTools, getToolBySlug } from "@/data/tools";
 import AlternativePageClient from "@/components/alternative/AlternativePageClient";
+import { generateAlternativeFaqItems } from "@/lib/alternative-faq";
 
 type Props = {
   params: Promise<{ outil: string }>;
@@ -44,7 +45,7 @@ export default async function AlternativePage({ params }: Props) {
   const allTools = getAllTools();
   const year = new Date().getFullYear();
 
-  const jsonLd = {
+  const articleJsonLd = {
     "@context": "https://schema.org",
     "@type": "Article",
     headline: `Alternative à ${tool.nom} : les meilleures options en ${year}`,
@@ -61,11 +62,32 @@ export default async function AlternativePage({ params }: Props) {
     },
   };
 
+  const alternatives = allTools
+    .filter((t) => t.slug !== tool.slug)
+    .sort((a, b) => b.noteGlobale - a.noteGlobale);
+
+  const faqJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: generateAlternativeFaqItems(tool, alternatives).map((item) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.answer,
+      },
+    })),
+  };
+
   return (
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
       <AlternativePageClient tool={tool} allTools={allTools} year={year} />
     </>
