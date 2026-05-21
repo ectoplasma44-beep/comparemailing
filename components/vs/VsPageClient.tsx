@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import type { Tool, Feature } from "@/data/tools";
+import { VS_COMBINATIONS, getVsPageSlug, getToolBySlug } from "@/data/tools";
 import AffiliateButton from "@/components/AffiliateButton";
 import { generateFaqItems } from "@/lib/vs-faq";
 
@@ -649,6 +650,48 @@ export default function VsPageClient({ toolA, toolB, year }: Props) {
 
         </div>
       </div>
+
+      {/* ── PAGES SIMILAIRES ─────────────────────────────────────────────── */}
+      {(() => {
+        const related = VS_COMBINATIONS.filter(([a, b]) => {
+          const involves =
+            a === toolA.slug || b === toolA.slug ||
+            a === toolB.slug || b === toolB.slug;
+          const isSelf =
+            (a === toolA.slug && b === toolB.slug) ||
+            (a === toolB.slug && b === toolA.slug);
+          return involves && !isSelf;
+        }).slice(0, 6);
+
+        if (related.length === 0) return null;
+
+        return (
+          <div className="border-t border-gray-100 px-4 py-8">
+            <div className="mx-auto max-w-4xl">
+              <h3 className="mb-4 text-sm font-semibold uppercase tracking-wide text-gray-500">
+                Comparez d&apos;autres outils
+              </h3>
+              <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
+                {related.map(([a, b]) => {
+                  const tA = getToolBySlug(a);
+                  const tB = getToolBySlug(b);
+                  if (!tA || !tB) return null;
+                  const slug = getVsPageSlug(a, b);
+                  return (
+                    <a
+                      key={slug}
+                      href={`/${slug}`}
+                      className="rounded-lg border border-gray-200 px-3 py-2.5 text-sm text-gray-700 transition-colors hover:bg-gray-50 hover:text-gray-900"
+                    >
+                      {tA.nom} vs {tB.nom} →
+                    </a>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        );
+      })()}
 
       {/* ── LEGAL DISCLOSURE ─────────────────────────────────────────────── */}
       <footer className="border-t border-gray-100 bg-gray-50 px-4 py-6">

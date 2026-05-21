@@ -510,6 +510,33 @@ export default function AlternativePageClient({ tool, allTools, year }: Props) {
         </div>
       </div>
 
+      {/* ── COMPAREZ CES ALTERNATIVES ────────────────────────────────────── */}
+      {alternatives.length > 0 && (
+        <div className="border-t border-gray-100 px-4 py-8">
+          <div className="mx-auto max-w-4xl">
+            <h3 className="mb-4 text-sm font-semibold uppercase tracking-wide text-gray-500">
+              Comparez ces alternatives
+            </h3>
+            <ul className="space-y-2">
+              {alternatives.slice(0, 5).map((alt) => {
+                const slug = getVsPageSlug(alt.slug, tool.slug);
+                return (
+                  <li key={slug}>
+                    <a
+                      href={`/${slug}`}
+                      className="flex items-center gap-2 text-sm text-gray-700 hover:text-gray-900 hover:underline"
+                    >
+                      <span className="text-gray-400">→</span>
+                      {alt.nom} vs {tool.nom}
+                    </a>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        </div>
+      )}
+
       {/* ── LEGAL DISCLOSURE ─────────────────────────────────────────────── */}
       <footer className="border-t border-gray-100 bg-gray-50 px-4 py-6">
         <div className="mx-auto max-w-4xl">

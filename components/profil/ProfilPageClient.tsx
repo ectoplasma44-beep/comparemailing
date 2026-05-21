@@ -3,6 +3,7 @@
 import type { Tool } from "@/data/tools";
 import { getVsPageSlug } from "@/data/tools";
 import type { Profile } from "@/data/profiles";
+import { PROFILES } from "@/data/profiles";
 import AffiliateButton from "@/components/AffiliateButton";
 import { generateProfilFaqItems } from "@/lib/profil-faq";
 
@@ -55,6 +56,24 @@ function bestTool(
       .sort((a, b) => b.noteGlobale - a.noteGlobale)[0] ?? null
   );
 }
+
+const RELATED_PROFILES: Record<string, string[]> = {
+  freelance:    ["consultant", "coach", "formateur", "therapeute"],
+  tpe:          ["artisan", "restauration", "association", "ecommerce"],
+  ecommerce:    ["startup", "agence", "infopreneur", "formateur"],
+  startup:      ["agence", "ecommerce", "infopreneur", "consultant"],
+  association:  ["therapeute", "artisan", "tpe", "createur"],
+  artisan:      ["restauration", "tpe", "photographe", "therapeute"],
+  coach:        ["formateur", "consultant", "infopreneur", "createur"],
+  formateur:    ["coach", "infopreneur", "createur", "consultant"],
+  createur:     ["infopreneur", "formateur", "coach", "photographe"],
+  photographe:  ["artisan", "coach", "freelance", "therapeute"],
+  therapeute:   ["freelance", "association", "artisan", "photographe"],
+  consultant:   ["freelance", "coach", "formateur", "startup"],
+  infopreneur:  ["formateur", "coach", "createur", "ecommerce"],
+  agence:       ["startup", "ecommerce", "consultant", "infopreneur"],
+  restauration: ["artisan", "tpe", "association", "photographe"],
+};
 
 const BUDGET_LABEL: Record<Profile["budgetMensuel"], string> = {
   gratuit: "Gratuit",
@@ -490,6 +509,37 @@ export default function ProfilPageClient({ profil, tools, allTools, year }: Prop
           </dl>
         </div>
       </div>
+
+      {/* ── AUTRES PROFILS SIMILAIRES ────────────────────────────────────── */}
+      {(() => {
+        const relatedSlugs = RELATED_PROFILES[profil.slug] ?? [];
+        const relatedProfiles = relatedSlugs
+          .map((s) => PROFILES[s])
+          .filter(Boolean) as Profile[];
+
+        if (relatedProfiles.length === 0) return null;
+
+        return (
+          <div className="border-t border-gray-100 px-4 py-8">
+            <div className="mx-auto max-w-4xl">
+              <h3 className="mb-4 text-sm font-semibold uppercase tracking-wide text-gray-500">
+                Autres profils similaires
+              </h3>
+              <div className="grid grid-cols-2 gap-2">
+                {relatedProfiles.map((p) => (
+                  <a
+                    key={p.slug}
+                    href={`/meilleur-emailing/${p.slug}`}
+                    className="rounded-lg border border-gray-200 px-3 py-2.5 text-sm text-gray-700 transition-colors hover:bg-gray-50 hover:text-gray-900"
+                  >
+                    {p.nom} →
+                  </a>
+                ))}
+              </div>
+            </div>
+          </div>
+        );
+      })()}
 
       {/* ── LEGAL DISCLOSURE ─────────────────────────────────────────────── */}
       <footer className="border-t border-gray-100 bg-gray-50 px-4 py-6">
