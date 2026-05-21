@@ -5,7 +5,7 @@ import Link from "next/link";
 
 const navLinks = [
   { label: "Outils", href: "/outils" },
-  { label: "Comparatifs", href: "/#comparatifs" },
+  { label: "Comparatifs", href: "/comparatifs" },
   { label: "Alternatives", href: "/alternative/mailchimp" },
   { label: "Par profil", href: "/meilleur-emailing/freelance" },
   { label: "Quiz", href: "/quiz" },
