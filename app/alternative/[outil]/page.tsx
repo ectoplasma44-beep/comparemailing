@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { getAllTools, getToolBySlug } from "@/data/tools";
 import AlternativePageClient from "@/components/alternative/AlternativePageClient";
 import { generateAlternativeFaqItems } from "@/lib/alternative-faq";
+import { generateBreadcrumbJsonLd } from "@/lib/breadcrumb";
 
 type Props = {
   params: Promise<{ outil: string }>;
@@ -79,6 +80,12 @@ export default async function AlternativePage({ params }: Props) {
     })),
   };
 
+  const breadcrumbJsonLd = generateBreadcrumbJsonLd([
+    { name: "Accueil", url: "https://toolpick.fr" },
+    { name: "Alternatives", url: "https://toolpick.fr/outils" },
+    { name: `Alternative à ${tool.nom}`, url: `https://toolpick.fr/alternative/${outil}` },
+  ]);
+
   return (
     <>
       <script
@@ -88,6 +95,10 @@ export default async function AlternativePage({ params }: Props) {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
       <AlternativePageClient tool={tool} allTools={allTools} year={year} />
     </>

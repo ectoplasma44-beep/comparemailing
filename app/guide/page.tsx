@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { getAllTools } from "@/data/tools";
+import { generateBreadcrumbJsonLd } from "@/lib/breadcrumb";
 
 const BASE_URL = "https://toolpick.fr";
 
@@ -139,6 +140,11 @@ export default function GuidePage() {
     publisher: { "@type": "Organization", name: "ToolPick" },
   };
 
+  const breadcrumbJsonLd = generateBreadcrumbJsonLd([
+    { name: "Accueil", url: "https://toolpick.fr" },
+    { name: "Guide emailing", url: "https://toolpick.fr/guide" },
+  ]);
+
   return (
     <>
       <script
@@ -148,6 +154,10 @@ export default function GuidePage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
 
       <main className="min-h-screen bg-white">

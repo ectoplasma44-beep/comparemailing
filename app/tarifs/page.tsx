@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { getAllTools } from "@/data/tools";
 import type { Tool, PricingTier } from "@/data/tools";
 import TarifsClient, { type PricingRow, type BestPick } from "@/components/tarifs/TarifsClient";
+import { generateBreadcrumbJsonLd } from "@/lib/breadcrumb";
 
 const BASE_URL = "https://toolpick.fr";
 
@@ -154,10 +155,16 @@ export default function TarifsPage() {
     })),
   };
 
+  const breadcrumbJsonLd = generateBreadcrumbJsonLd([
+    { name: "Accueil", url: "https://toolpick.fr" },
+    { name: "Tarifs", url: "https://toolpick.fr/tarifs" },
+  ]);
+
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
 
       <main className="min-h-screen bg-white">
 

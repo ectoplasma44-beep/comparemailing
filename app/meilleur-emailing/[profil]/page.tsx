@@ -4,6 +4,7 @@ import { getAllProfiles, getProfileBySlug } from "@/data/profiles";
 import { getAllTools, getToolsForProfile } from "@/data/tools";
 import ProfilPageClient from "@/components/profil/ProfilPageClient";
 import { generateProfilFaqItems } from "@/lib/profil-faq";
+import { generateBreadcrumbJsonLd } from "@/lib/breadcrumb";
 
 type Props = {
   params: Promise<{ profil: string }>;
@@ -77,6 +78,12 @@ export default async function ProfilPage({ params }: Props) {
     })),
   };
 
+  const breadcrumbJsonLd = generateBreadcrumbJsonLd([
+    { name: "Accueil", url: "https://toolpick.fr" },
+    { name: "Par profil", url: "https://toolpick.fr/outils" },
+    { name: `Meilleur emailing ${profile.nom}`, url: `https://toolpick.fr/meilleur-emailing/${profil}` },
+  ]);
+
   return (
     <>
       <script
@@ -86,6 +93,10 @@ export default async function ProfilPage({ params }: Props) {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
       <ProfilPageClient
         profil={profile}

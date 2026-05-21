@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { TOOLS, VS_COMBINATIONS, getToolBySlug, getVsPageSlug } from "@/data/tools";
 import VsPageClient from "@/components/vs/VsPageClient";
 import { generateFaqItems } from "@/lib/vs-faq";
+import { generateBreadcrumbJsonLd } from "@/lib/breadcrumb";
 
 type Props = {
   params: Promise<{ vs: string }>;
@@ -94,6 +95,12 @@ export default async function VsPage({ params }: Props) {
     })),
   };
 
+  const breadcrumbJsonLd = generateBreadcrumbJsonLd([
+    { name: "Accueil", url: "https://toolpick.fr" },
+    { name: "Comparatifs", url: "https://toolpick.fr/comparatifs" },
+    { name: `${toolA.nom} vs ${toolB.nom}`, url: `https://toolpick.fr/${vs}` },
+  ]);
+
   return (
     <>
       <script
@@ -103,6 +110,10 @@ export default async function VsPage({ params }: Props) {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
       <VsPageClient toolA={toolA} toolB={toolB} year={year} />
     </>
