@@ -419,6 +419,12 @@ export default function HomePage() {
       <footer className="bg-white px-4 py-10">
         <div className="mx-auto max-w-5xl">
           <div className="mb-6 flex flex-wrap justify-center gap-x-6 gap-y-2 text-xs text-gray-400">
+            <a href="/guide" className="hover:text-gray-700 hover:underline">
+              Guide emailing
+            </a>
+            <a href="/outils" className="hover:text-gray-700 hover:underline">
+              Tous les outils
+            </a>
             <a href="/mentions-legales" className="hover:text-gray-700 hover:underline">
               Mentions légales
             </a>
