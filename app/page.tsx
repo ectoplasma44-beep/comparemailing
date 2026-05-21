@@ -97,7 +97,11 @@ const BASE_URL = "https://toolpick.fr";
 
 export default function HomePage() {
   const profiles = getAllProfiles();
-  const toolNameMap = Object.fromEntries(getAllTools().map((t) => [t.slug, t.nom]));
+  const allTools = getAllTools();
+  const toolNameMap = Object.fromEntries(allTools.map((t) => [t.slug, t.nom]));
+  const nbComparatifs = VS_COMBINATIONS.length;
+  const nbOutils = allTools.length;
+  const nbProfils = profiles.length;
 
   const websiteJsonLd = {
     "@context": "https://schema.org",
@@ -156,17 +160,31 @@ export default function HomePage() {
       {/* ── HERO ─────────────────────────────────────────────────────────── */}
       <section className="border-b border-gray-100 bg-gradient-to-b from-gray-50 to-white px-4 py-20 text-center">
         <div className="mx-auto max-w-3xl">
-          <span className="mb-4 inline-block rounded-full border border-gray-200 bg-white px-3 py-1 text-xs font-medium text-gray-500">
-            10 outils · 18 comparatifs · 15 profils
-          </span>
           <h1 className="mb-4 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
             Trouvez le meilleur outil emailing{" "}
             <span className="text-gray-500">pour votre profil</span>
           </h1>
-          <p className="mx-auto mb-8 max-w-xl text-lg text-gray-500">
+          <p className="mx-auto mb-6 max-w-xl text-lg text-gray-500">
             Comparatifs détaillés, simulateurs de coût et recommandations
             personnalisées pour choisir sans se tromper.
           </p>
+
+          {/* Stats dynamiques */}
+          <div className="mx-auto mb-8 flex max-w-md items-center justify-center divide-x divide-gray-200 rounded-xl border border-gray-200 bg-white px-4 py-3">
+            <div className="flex-1 px-4 text-center">
+              <p className="text-xl font-bold text-gray-900">{nbComparatifs}</p>
+              <p className="text-xs text-gray-500">comparatifs</p>
+            </div>
+            <div className="flex-1 px-4 text-center">
+              <p className="text-xl font-bold text-gray-900">{nbOutils}</p>
+              <p className="text-xs text-gray-500">outils analysés</p>
+            </div>
+            <div className="flex-1 px-4 text-center">
+              <p className="text-xl font-bold text-gray-900">{nbProfils}</p>
+              <p className="text-xs text-gray-500">profils couverts</p>
+            </div>
+          </div>
+
           <div className="flex flex-col items-center justify-center gap-3 sm:flex-row">
             <a
               href="#comparatifs"
@@ -227,7 +245,7 @@ export default function HomePage() {
               Comparatifs populaires
             </h2>
             <p className="text-sm text-gray-500">
-              Les face-à-face les plus recherchés pour choisir votre outil emailing.
+              Les {POPULAR_VS.length} comparatifs les plus recherchés pour choisir votre outil emailing.
             </p>
           </div>
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
@@ -384,7 +402,7 @@ export default function HomePage() {
               Tous les comparatifs
             </h2>
             <p className="text-sm text-gray-500">
-              18 face-à-face détaillés entre les principaux outils emailing.
+              Tous nos {nbComparatifs} comparatifs détaillés entre les principaux outils emailing.
             </p>
           </div>
           <div className="grid grid-cols-1 gap-x-6 gap-y-2 sm:grid-cols-2 lg:grid-cols-3">
