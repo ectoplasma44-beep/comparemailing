@@ -1,11 +1,18 @@
 import { ImageResponse } from "next/og";
-import { getToolBySlug } from "@/data/tools";
+import { getToolBySlug, VS_COMBINATIONS, getVsPageSlug } from "@/data/tools";
 
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-export default function Image({ params }: { params: { vs: string } }) {
-  const parts = params.vs.split("-vs-");
+export function generateStaticParams() {
+  return VS_COMBINATIONS.map(([slugA, slugB]) => ({
+    vs: getVsPageSlug(slugA, slugB),
+  }));
+}
+
+export default async function Image({ params }: { params: Promise<{ vs: string }> }) {
+  const { vs } = await params;
+  const parts = vs.split("-vs-");
   const toolA = parts[0] ? getToolBySlug(parts[0]) : null;
   const toolB = parts[1] ? getToolBySlug(parts[1]) : null;
 

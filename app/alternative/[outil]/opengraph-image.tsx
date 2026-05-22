@@ -1,12 +1,17 @@
 import { ImageResponse } from "next/og";
-import { getToolBySlug } from "@/data/tools";
+import { getToolBySlug, getAllTools } from "@/data/tools";
 
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-export default function Image({ params }: { params: { outil: string } }) {
-  const tool = getToolBySlug(params.outil);
-  const nom = tool?.nom ?? params.outil;
+export function generateStaticParams() {
+  return getAllTools().map((tool) => ({ outil: tool.slug }));
+}
+
+export default async function Image({ params }: { params: Promise<{ outil: string }> }) {
+  const { outil } = await params;
+  const tool = getToolBySlug(outil);
+  const nom = tool?.nom ?? outil;
   const color = tool?.couleurBrand ?? "#4F46E5";
 
   return new ImageResponse(
