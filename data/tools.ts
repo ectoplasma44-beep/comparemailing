@@ -1260,4 +1260,18 @@ export const VS_COMBINATIONS: [string, string][] = [
   ["systemeio", "mailchimp"],
   ["activecampaign", "moosend"],
   ["sarbacane", "mailjet"],
+  // Klaviyo
+  ["klaviyo", "mailchimp"],
+  ["klaviyo", "omnisend"],
+  ["klaviyo", "activecampaign"],
+  ["klaviyo", "brevo"],
+  // Omnisend
+  ["omnisend", "mailchimp"],
+  ["omnisend", "brevo"],
+  // AWeber
+  ["aweber", "mailchimp"],
+  ["aweber", "mailerlite"],
+  // Benchmark
+  ["benchmark", "mailchimp"],
+  ["benchmark", "mailerlite"],
 ];
