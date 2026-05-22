@@ -1274,4 +1274,12 @@ export const VS_COMBINATIONS: [string, string][] = [
   // Benchmark
   ["benchmark", "mailchimp"],
   ["benchmark", "mailerlite"],
+  // Paires supplémentaires couverture complète
+  ["klaviyo", "mailerlite"],
+  ["klaviyo", "getresponse"],
+  ["omnisend", "activecampaign"],
+  ["aweber", "getresponse"],
+  ["aweber", "convertkit"],
+  ["benchmark", "brevo"],
+  ["benchmark", "getresponse"],
 ];
