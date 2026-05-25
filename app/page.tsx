@@ -443,6 +443,18 @@ export default function HomePage() {
             <a href="/newsletter" className="hover:text-gray-700 hover:underline">
               Créer une newsletter
             </a>
+            <a href="/automation" className="hover:text-gray-700 hover:underline">
+              Marketing automation
+            </a>
+            <a href="/rgpd-emailing" className="hover:text-gray-700 hover:underline">
+              RGPD et emailing
+            </a>
+            <a href="/delivrabilite" className="hover:text-gray-700 hover:underline">
+              Délivrabilité
+            </a>
+            <a href="/emailing-ecommerce" className="hover:text-gray-700 hover:underline">
+              Emailing e-commerce
+            </a>
             <a href="/outils" className="hover:text-gray-700 hover:underline">
               Tous les outils
             </a>
