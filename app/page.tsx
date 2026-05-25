@@ -440,6 +440,9 @@ export default function HomePage() {
             <a href="/guide" className="hover:text-gray-700 hover:underline">
               Guide emailing
             </a>
+            <a href="/newsletter" className="hover:text-gray-700 hover:underline">
+              Créer une newsletter
+            </a>
             <a href="/outils" className="hover:text-gray-700 hover:underline">
               Tous les outils
             </a>
