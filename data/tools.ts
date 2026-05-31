@@ -969,13 +969,13 @@ export const TOOLS: Record<string, Tool> = {
     descriptionLongue:
       "AWeber est l'une des premières plateformes d'email marketing, fondée en 1998 en Pennsylvanie. Pionnière des autorépondeurs, elle a bâti sa réputation sur une délivrabilité excellente, un support client disponible 24h/7j et une interface délibérément simple. Si elle a moins innové que ses concurrents, elle reste un choix solide pour les freelances, coachs et créateurs qui veulent un outil qui fonctionne sans complexité, avec un plan gratuit permanent généreux jusqu'à 500 contacts.",
     siteUrl: "https://www.aweber.com/",
-    affiliateUrl: "https://www.aweber.com/affiliates.htm",
+    affiliateUrl: "https://www.aweber.com/easy-email.htm?id=561661",
     affiliateProgram: {
       commission: "30 % récurrent à vie",
       type: "récurrent",
       dureeRecurrence: "à vie",
       cookieDays: 365,
-      lien: "https://www.aweber.com/affiliates.htm",
+      lien: "https://www.aweber.com/easy-email.htm?id=561661",
     },
     noteGlobale: 3.9,
     prixDepart: 0,
